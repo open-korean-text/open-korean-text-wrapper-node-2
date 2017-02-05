@@ -17,8 +17,5 @@ dependencies.forEach((dependency) => {
     java.classpath.push(baseDir + "/" + dependency);
 });
 
-// es6 export
-exports = require('./lib');
-
-// es5 export
-module.exports = require('./lib').default;
+// export
+module.exports = require('./lib');

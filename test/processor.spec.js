@@ -4,8 +4,10 @@ const expect = require('chai').expect;
 const OpenKoreanTextProcessor = require('../');
 
 suite('OpenKoreanTextProcessor', () => {
+
+  beforeEach(() => OpenKoreanTextProcessor.ensureJvm());
+
   suite('sync', () => {
-    before((done) => require('java').ensureJvm(done));
 
     test('normalize', (done) => {
       const text = '힘들겟씀다 그래욬ㅋㅋㅋ';

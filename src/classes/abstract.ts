@@ -1,6 +1,5 @@
 import * as Java from 'java';
 
-
 export type JavaClassInterface = any;
 export type JavaObjectInterface = any;
 export interface JavaClassConstructor<T> {

@@ -3,18 +3,16 @@
 const expect = require('chai').expect;
 const OpenKoreanTextProcessor = require('../');
 
-suite('IntermediaryToken', () => {
+suite('IntermediaryTokens', () => {
 
   const shared = {};
 
-  before((done) => require('java').ensureJvm(() => {
+  beforeEach(() => OpenKoreanTextProcessor.ensureJvm().then(() => {
     shared.token = OpenKoreanTextProcessor.tokenizeSync('착한강아지상을 받은 루루');
-    done();
   }));
 
-  after((done) => {
-    delete shared.token;
-    done();
+  afterEach((done) => {
+    delete shared.token && done();
   })
 
   suite('sync', () => {

@@ -1,8 +1,10 @@
-import { KoreanTokenObject, KoreanToken, Seq } from './classes';
-import { OpenKoreanTextProcessor, ExcludePhrasesOptions } from './OpenKoreanTextProcessor';
+import { KoreanTokenObject, KoreanToken, Seq } from '../classes';
+import { OpenKoreanTextProcessor, ExcludePhrasesOptions } from './processor';
 
 export class IntermediaryTokensObject extends Seq<any> {
 
+  // KoreanTokenObject is not required yet.
+  //
   // toTokenObjectList(): KoreanTokenObject[] {
   //   return this.map(token => new KoreanTokenObject(
   //     token.text(),

@@ -1,5 +1,6 @@
-import { AbstractJavaClass, Collections, ArrayList, Seq, KoreanToken, Sentence } from './classes';
-import { IntermediaryTokensObject } from './IntermediaryTokens'
+import * as Java from 'java';
+import { AbstractJavaClass, Collections, ArrayList, Seq, KoreanToken, Sentence } from '../classes';
+import { IntermediaryTokensObject } from './tokens'
 
 export interface ExcludePhrasesOptions {
   filterSpam?: boolean;
@@ -15,6 +16,26 @@ export interface ExcludePhrasesOptions {
 export class OpenKoreanTextProcessor extends AbstractJavaClass {
 
   static className = 'org.openkoreantext.processor.OpenKoreanTextProcessorJava';
+
+  /**
+   * Ensure JVM has been created
+   *
+   * @param [done] done callback
+   */
+  static ensureJvm(done: () => void): void;
+  static ensureJvm(): Promise<void>;
+  static ensureJvm(...args: any[]) {
+    return Java.ensureJvm.apply(Java, args);
+  };
+
+  /**
+   * Check whether the JVM is created or not
+   *
+   * @returns boolean
+   */
+  static isJvmCreated(): boolean {
+    return Java.isJvmCreated();
+  }
 
   /**
    * Normalize Korean text

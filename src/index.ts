@@ -1,2 +1,11 @@
-export { IntermediaryTokensObject } from './IntermediaryTokens';
-export { OpenKoreanTextProcessor, OpenKoreanTextProcessor as default } from './OpenKoreanTextProcessor';
+export {
+  KoreanToken,
+  KoreanPos,
+  Sentence,
+} from './classes';
+
+export {
+  OpenKoreanTextProcessor,
+  IntermediaryTokensObject,
+  OpenKoreanTextProcessor as default
+} from './processor';

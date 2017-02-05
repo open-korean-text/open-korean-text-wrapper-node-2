@@ -1,9 +1,9 @@
-# node-twitter-korean-text
+# node-open-korean-text
 
-[![npm version](https://badge.fury.io/js/node-twitter-korean-text.svg)](https://www.npmjs.com/package/node-twitter-korean-text)
-[![Build Status](https://travis-ci.org/rokoroku/node-twitter-korean-text.svg?branch=travis-ci)](https://travis-ci.org/rokoroku/node-twitter-korean-text)
+[![npm version](https://badge.fury.io/js/open-korean-text-node.svg)](https://badge.fury.io/js/open-korean-text-node)
+[![Build Status](https://travis-ci.org/open-korean-text/open-korean-text-wrapper-node-2.svg)](https://travis-ci.org/open-korean-text/open-korean-text-wrapper-node-2)
 
-Nodejs wrapper of [open-korean-text](https://github.com/open-korean-text/open-korean-text) via [node-java](https://github.com/joeferner/node-java) interface.
+A nodejs binding for [open-korean-text](https://github.com/open-korean-text/open-korean-text) via [node-java](https://github.com/joeferner/node-java) interface.
 
 ## Dependency
 
@@ -15,10 +15,13 @@ Currently wraps [open-korean-text 1.1](https://github.com/open-korean-text/open-
 ## Requirement
 
 Since it uses java code compiled with Java 8, make sure you have both Java 8 JDK and JRE installed.  
-For more details about installing java interface, see installation notes on [node-java](https://github.com/joeferner/node-java#installation).
+For more details about installing java interface, see installation notes on below links.
 
 이 프로젝트는 Java 8로 컴파일된 코드를 사용하기 때문에, Java 8 JDK/JRE가 설치되어 있어야 합니다.  
-Java interface의 설치에 관련된 더 자세한 사항은 [이곳](https://github.com/joeferner/node-java#installation) 에서 확인하세요.
+Java interface의 설치에 관련된 더 자세한 사항은 아래 링크에서 확인하세요.
+
+- [node-gyp#installation](https://github.com/nodejs/node-gyp#installation)
+- [node-java#installation](https://github.com/joeferner/node-java#installation)
 
 ## Installation
 
@@ -26,21 +29,25 @@ Java interface의 설치에 관련된 더 자세한 사항은 [이곳](https://g
 npm install --save open-korean-text-node
 ```
 
-## Examples
-
-See [test/processor.spec.js](./test/processor.spec.js)
-
-## API
-
-### OpenKoreanText
-
-#### Importing
+### Usage
 
 ```typescript
 import OpenKoreanText from 'open-korean-text-node';
 // or
-const OpenKoreanText = require('open-korean-text-node');
+const OpenKoreanText = require('open-korean-text-node').default;
 ```
+
+- See [API](#api) section to get more informations.
+
+
+## Examples
+
+- [test/processor.spec.js](./test/processor.spec.js)
+- [test/tokens.spec.js](./test/tokens.spec.js)
+
+## API
+
+### OpenKoreanText
 
 #### Tokenizing
 
@@ -129,8 +136,8 @@ OpenKoreanText.tokensToJsonArraySync(tokens: IntermediaryTokensObject, keepSpace
 
 ### **IntermediaryToken** object
 
-- A intermediary token object that can be processed more
-- Provides a convenience wrapper function to process text without using `OpenKoreanText.process(...)`
+An intermediate token object required for internal processing.  
+Provides a convenience wrapper functionS to process text without using processor object (e.g. `OpenKoreanText.stem(...)`)
 
 ```typescript
 tokens.stem(): Promise<IntermediaryTokensObject>;
@@ -145,6 +152,8 @@ tokens.toJSON(): KoreanToken[];
 - NOTE: `tokens.toJSON()` method is equivalent with `OpenKoreanText.tokensToJsonArraySync(tokens, false)`
 
 ### **KoreanToken** object
+
+A JSON output object which contains:
 
 - `text`: string - token's text
 - `pos`: stirng - type of token. possible entries are:

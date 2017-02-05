@@ -1,4 +1,4 @@
-import { AbstractJavaClass } from './AbstractJavaClass';
+import { AbstractJavaClass } from './abstract';
 
 export class Collections<T> extends AbstractJavaClass {
 

@@ -1,5 +1,5 @@
 **/*
-!lib/*
-!bin/*
+!lib/**/*
+!bin/**/*
 !index.js
 !index.d.ts
