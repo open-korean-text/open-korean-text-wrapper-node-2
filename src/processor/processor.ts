@@ -24,8 +24,12 @@ export class OpenKoreanTextProcessor extends AbstractJavaClass {
    */
   static ensureJvm(done: () => void): void;
   static ensureJvm(): Promise<void>;
-  static ensureJvm(...args: any[]) {
-    return Java.ensureJvm.apply(Java, args);
+  static ensureJvm() {
+    if (arguments[0] && typeof arguments[0] == 'function') {
+      return Java.ensureJvm(arguments[0]);
+    } else {
+      return Java.ensureJvm();
+    }
   };
 
   /**
@@ -74,13 +78,15 @@ export class OpenKoreanTextProcessor extends AbstractJavaClass {
    * @param   words List of user nouns
    * @returns
    */
-  static addNounsToDictionary(...words: string[]): Promise<void> {
-    const listObject = new ArrayList(...words);
+  static addNounsToDictionary(...words: string[]): Promise<void>;
+  static addNounsToDictionary(): Promise<void> {
+    const listObject = new ArrayList(Array.from(arguments));
     return this.class.addNounsToDictionaryPromise(listObject.interface);
   }
 
-  static addNounsToDictionarySync(...words: string[]): void {
-    const listObject = new ArrayList(...words);
+  static addNounsToDictionarySync(...words: string[]): void;
+  static addNounsToDictionarySync(): void {
+    const listObject = new ArrayList(Array.from(arguments));
     return this.class.addNounsToDictionary(listObject.interface);
   }
 
@@ -185,16 +191,16 @@ export class OpenKoreanTextProcessor extends AbstractJavaClass {
   static detokenize(tokens: IntermediaryTokensObject): Promise<string>;
   static detokenize(words: string[]): Promise<string>;
   static detokenize(...words: string[]): Promise<string>;
-  static detokenize(...args: any[]): Promise<string> {
+  static detokenize(): Promise<string> {
     let words: string[];
-    if (args[0] instanceof IntermediaryTokensObject) {
-      words = args[0].toJSON().filter(token => token.pos !== 'Space').map(token => token.text);
-    } else if (Array.isArray(args[0])) {
-      words = args[0];
+    if (arguments[0] instanceof IntermediaryTokensObject) {
+      words = arguments[0].toJSON().filter(token => token.pos !== 'Space').map(token => token.text);
+    } else if (Array.isArray(arguments[0])) {
+      words = arguments[0];
     } else {
-      words = args;
+      words = Array.from(arguments);
     }
-    const list = new ArrayList(...words);
+    const list = new ArrayList(words);
     return this.class.detokenizePromise(list.interface)
       .then(detokenized => detokenized.toString());
   }
@@ -202,16 +208,16 @@ export class OpenKoreanTextProcessor extends AbstractJavaClass {
   static detokenizeSync(tokens: IntermediaryTokensObject): string;
   static detokenizeSync(words: string[]): string;
   static detokenizeSync(...words: string[]): string;
-  static detokenizeSync(...args: any[]): string {
+  static detokenizeSync(): string {
     let words: string[];
-    if (args[0] instanceof IntermediaryTokensObject) {
-      words = args[0].toJSON().filter(token => token.pos !== 'Space').map(token => token.text);
-    } else if (Array.isArray(args[0])) {
-      words = args[0];
+    if (arguments[0] instanceof IntermediaryTokensObject) {
+      words = arguments[0].toJSON().filter(token => token.pos !== 'Space').map(token => token.text);
+    } else if (Array.isArray(arguments[0])) {
+      words = arguments[0];
     } else {
-      words = args;
+      words = Array.from(arguments);
     }
-    const list = new ArrayList(...words);
+    const list = new ArrayList(words);
     const detokenized = this.class.detokenize(list.interface);
     return detokenized.toString();
   }

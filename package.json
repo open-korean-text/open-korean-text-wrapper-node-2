@@ -1,6 +1,6 @@
 {
   "name": "open-korean-text-node",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Nodejs binding for open-korean-text via java interface.",
   "main": "index.js",
   "types": "lib/index.d.ts",

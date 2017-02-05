@@ -26,14 +26,15 @@ export abstract class AbstractJavaClass {
     return new this({ javaObject });
   }
 
-  constructor(...args: any[]) {
+  constructor(...args: any[]);
+  constructor() {
     const proto = this.constructor as typeof AbstractJavaClass;
-    if (args[0] && args[0].javaObject) {
+    if (arguments[0] && arguments[0].javaObject) {
       // wrap existing java object
-      this._interface = args[0].javaObject;
+      this._interface = arguments[0].javaObject;
     } else {
       // create new java object
-      this._interface = new proto.class(...args);
+      this._interface = new (Function.prototype.bind.apply(proto.class, Array.from(arguments)));
     }
   }
 

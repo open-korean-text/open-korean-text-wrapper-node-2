@@ -28,21 +28,23 @@ export class ArrayList<T> extends Collections<T> {
 
   static className = 'java.util.ArrayList';
 
-  constructor(...values: T[]) {
+  constructor(values?: T[]) {
     super();
-    this.addAllSync(values);
+    if (values && values.length) {
+      this.addAllSync(values);
+    }
   }
 
   add(item: T) {
-    return Promise.resolve(this.add(item));
+    return this.interface.addPromise(item);
   }
 
   addSync(item: T) {
-    this.interface.add(item);
+    return this.interface.add(item);
   }
 
   addAll(items: T[]) {
-    return Promise.resolve(this.addAll(items));
+    return Promise.all(items.map(item => this.add(item)));
   }
 
   addAllSync(items: T[]) {

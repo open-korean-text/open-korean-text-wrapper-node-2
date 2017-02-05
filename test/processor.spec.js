@@ -1,11 +1,11 @@
 'use strict';
 
 const expect = require('chai').expect;
-const OpenKoreanTextProcessor = require('../');
+const OpenKoreanTextProcessor = require('../').default;
 
 suite('OpenKoreanTextProcessor', () => {
 
-  beforeEach(() => OpenKoreanTextProcessor.ensureJvm());
+  before('ensure JVM', () => OpenKoreanTextProcessor.ensureJvm());
 
   suite('sync', () => {
 
