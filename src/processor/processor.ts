@@ -97,11 +97,11 @@ export class OpenKoreanTextProcessor extends AbstractJavaClass {
    * @param  [keepSpace=false] Keep spaces
    * @return JSON array of token objects.
    */
-  static tokensToJsonArray(tokens: IntermediaryTokensObject, keepSpace = false): Promise<KoreanToken[]> {
+  static tokensToJsonArray(tokens: IntermediaryTokensObject, keepSpace?: boolean): Promise<KoreanToken[]> {
     return Promise.resolve(this.tokensToJsonArraySync(tokens, keepSpace));
   }
 
-  static tokensToJsonArraySync(tokens: IntermediaryTokensObject, keepSpace = false): KoreanToken[] {
+  static tokensToJsonArraySync(tokens: IntermediaryTokensObject, keepSpace?: boolean): KoreanToken[] {
     const list = tokens.toJSON();
     return keepSpace ? list : list.filter(token => token.pos !== 'Space');
   }

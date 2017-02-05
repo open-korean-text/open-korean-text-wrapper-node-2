@@ -17,9 +17,9 @@ export class KoreanTokenObject extends AbstractJavaClass implements KoreanToken 
     public pos: KoreanPos,
     public offset: number,
     public length: number,
-    public isUnknown: boolean = false) {
+    public isUnknown?: boolean) {
 
-    super(text, KoreanPosObject.valueOf(pos), offset, length, isUnknown);
+    super(text, KoreanPosObject.valueOf(pos), offset, length, !!isUnknown);
   }
 
   toJSON() {
