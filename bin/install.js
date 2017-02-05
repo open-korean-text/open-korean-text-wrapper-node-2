@@ -8,7 +8,7 @@ const fs = require('fs');
 const url = require("url");
 const path = require("path");
 const wget = require('node-wget');
-const dependencies = require('./package.json').mavenDependencies;
+const dependencies = require('../package.json').mavenDependencies;
 
 function clearPath(path) {
     if (fs.existsSync(path)) {

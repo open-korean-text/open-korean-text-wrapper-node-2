@@ -1,41 +1,42 @@
 {
-  "name": "node-twitter-korean-text",
-  "version": "1.0.5",
-  "description": "Nodejs interface to twitter-korean-text",
+  "name": "open-korean-text-node",
+  "version": "1.1.0",
+  "description": "Nodejs wrapper of open-korean-text via Java interface.",
   "main": "index.js",
   "scripts": {
-    "test": "npm run build && lab --globals __core-js_shared__",
-    "build": "babel src --out-dir lib",
+    "pretest": "npm run build",
+    "test": "mocha --ui tdd --timeout 5000",
+    "build": "rm -r lib && tsc",
     "prepublish": "npm run build",
-    "install": "node install.js"
+    "install": "node bin/install.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rokoroku/node-twitter-korean-text.git"
+    "url": "https://github.com/open-korean-text/open-korean-text-wrapper-node-2"
   },
   "keywords": [
-    "korean",
     "nlp",
+    "korean",
+    "open-korean-text",
     "twitter-korean-text"
   ],
-  "author": "rokoroku <rok0810@gmail.com>",
+  "author": "Youngrok Kim <rok0810@gmail.com>",
   "license": "Apache License 2.0",
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-plugin-transform-runtime": "^6.15.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-stage-3": "^6.17.0",
-    "code": "^4.0.0",
-    "lab": "^11.2.1"
+    "@types/java": "^0.7.31",
+    "@types/node": "^7.0.5",
+    "mocha": "^3.2.0",
+    "chai": "^3.5.0",
+    "typescript": "^2.1.5"
   },
   "dependencies": {
-    "babel-runtime": "^6.20.0",
+    "es6-promisify": "^5.0.0",
     "java": "^0.8.0",
     "node-wget": "^0.4.2"
   },
   "mavenDependencies": {
-    "scala-library": "https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.8/scala-library-2.11.8.jar",
-    "twitter-text": "https://repo1.maven.org/maven2/com/twitter/twitter-text/1.14.0/twitter-text-1.14.0.jar",
-    "korean-text": "https://repo1.maven.org/maven2/com/twitter/penguin/korean-text/4.4.4/korean-text-4.4.4.jar"
+    "scala-library": "http://central.maven.org/maven2/org/scala-lang/scala-library/2.12.0/scala-library-2.12.0.jar",
+    "twitter-text": "https://repo1.maven.org/maven2/com/twitter/twitter-text/1.14.3/twitter-text-1.14.3.jar",
+    "open-korean-text": "http://central.maven.org/maven2/org/openkoreantext/open-korean-text/1.1/open-korean-text-1.1.jar"
   }
 }
