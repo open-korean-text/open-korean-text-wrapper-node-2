@@ -12,7 +12,7 @@ suite('OpenKoreanTextProcessor', () => {
     test('normalize', (done) => {
       const text = '힘들겟씀다 그래욬ㅋㅋㅋ';
       const result = OpenKoreanTextProcessor.normalizeSync(text);
-      expect(result).to.eql('힘들겠습니다 그래요ㅋㅋ');
+      expect(result).to.eql('힘들겠습니다 그래요ㅋㅋㅋ');
       done();
     });
 
@@ -20,15 +20,15 @@ suite('OpenKoreanTextProcessor', () => {
       const text = '착한강아지상을 받은 루루';
       const intermediaryTokens = OpenKoreanTextProcessor.tokenizeSync(text);
       expect(intermediaryTokens.toString()).to.eql(
-        'List(착한(Adjective: 0, 2), 강아지(Noun: 2, 3), 상(Suffix: 5, 1), 을(Josa: 6, 1), ' +
-        ' (Space: 7, 1), 받은(Verb: 8, 2),  (Space: 10, 1), 루루(Noun: 11, 2))');
+        'List(착한(Adjective(착하다): 0, 2), 강아지(Noun: 2, 3), 상(Suffix: 5, 1), 을(Josa: 6, 1), ' +
+        ' (Space: 7, 1), 받은(Verb(받다): 8, 2),  (Space: 10, 1), 루루(Noun: 11, 2))');
       expect(intermediaryTokens.toJSON()).to.eql([
-        { text: '착한', pos: 'Adjective', offset: 0, length: 2, isUnknown: false },
+        { text: '착한', pos: 'Adjective', stem: '착하다', offset: 0, length: 2, isUnknown: false },
         { text: '강아지', pos: 'Noun', offset: 2, length: 3, isUnknown: false },
         { text: '상', pos: 'Suffix', offset: 5, length: 1, isUnknown: false },
         { text: '을', pos: 'Josa', offset: 6, length: 1, isUnknown: false },
         { text: ' ', pos: 'Space', offset: 7, length: 1, isUnknown: false },
-        { text: '받은', pos: 'Verb', offset: 8, length: 2, isUnknown: false },
+        { text: '받은', pos: 'Verb', stem: '받다', offset: 8, length: 2, isUnknown: false },
         { text: ' ', pos: 'Space', offset: 10, length: 1, isUnknown: false },
         { text: '루루', pos: 'Noun', offset: 11, length: 2, isUnknown: false }
       ]);
@@ -39,36 +39,22 @@ suite('OpenKoreanTextProcessor', () => {
       const text = '착한강아지상을 받은 루루';
       const tokens = OpenKoreanTextProcessor.tokenizeSync(text);
       expect(OpenKoreanTextProcessor.tokensToJsonArraySync(tokens, true)).to.eql([
-        { text: '착한', pos: 'Adjective', offset: 0, length: 2, isUnknown: false },
+        { text: '착한', pos: 'Adjective', stem: '착하다', offset: 0, length: 2, isUnknown: false },
         { text: '강아지', pos: 'Noun', offset: 2, length: 3, isUnknown: false },
         { text: '상', pos: 'Suffix', offset: 5, length: 1, isUnknown: false },
         { text: '을', pos: 'Josa', offset: 6, length: 1, isUnknown: false },
         { text: ' ', pos: 'Space', offset: 7, length: 1, isUnknown: false },
-        { text: '받은', pos: 'Verb', offset: 8, length: 2, isUnknown: false },
+        { text: '받은', pos: 'Verb', stem: '받다', offset: 8, length: 2, isUnknown: false },
         { text: ' ', pos: 'Space', offset: 10, length: 1, isUnknown: false },
         { text: '루루', pos: 'Noun', offset: 11, length: 2, isUnknown: false }
       ]);
       expect(OpenKoreanTextProcessor.tokensToJsonArraySync(tokens, false)).to.eql([
-        { text: '착한', pos: 'Adjective', offset: 0, length: 2, isUnknown: false },
+        { text: '착한', pos: 'Adjective', stem: '착하다', offset: 0, length: 2, isUnknown: false },
         { text: '강아지', pos: 'Noun', offset: 2, length: 3, isUnknown: false },
         { text: '상', pos: 'Suffix', offset: 5, length: 1, isUnknown: false },
         { text: '을', pos: 'Josa', offset: 6, length: 1, isUnknown: false },
-        { text: '받은', pos: 'Verb', offset: 8, length: 2, isUnknown: false },
+        { text: '받은', pos: 'Verb', stem: '받다', offset: 8, length: 2, isUnknown: false },
         { text: '루루', pos: 'Noun', offset: 11, length: 2, isUnknown: false }
-      ]);
-      done();
-    });
-
-    test('stemming', (done) => {
-      const text = '게으른 아침이 밝았구나';
-      const tokens = OpenKoreanTextProcessor.tokenizeSync(text);
-      const stemmed = OpenKoreanTextProcessor.stemSync(tokens);
-      const result = OpenKoreanTextProcessor.tokensToJsonArraySync(stemmed);
-      expect(result).to.eql([
-        { text: '게으르다', pos: 'Adjective', offset: 0, length: 3, isUnknown: false },
-        { text: '아침', pos: 'Noun', offset: 4, length: 2, isUnknown: false },
-        { text: '이', pos: 'Josa', offset: 6, length: 1, isUnknown: false },
-        { text: '밝다', pos: 'Verb', offset: 8, length: 4, isUnknown: false }
       ]);
       done();
     });
@@ -124,18 +110,14 @@ suite('OpenKoreanTextProcessor', () => {
       expect(phrases).to.eql([
         { text: '토토가', pos: 'Noun', offset: 3, length: 3 },
         { text: '토토가의 인기폭발', pos: 'Noun', offset: 3, length: 9 },
-        { text: '인기폭발', pos: 'Noun', offset: 8, length: 4 },
         { text: '미국', pos: 'Noun', offset: 17, length: 2 },
         { text: '뉴키즈온더블럭', pos: 'Noun', offset: 22, length: 7 },
         { text: '뉴키즈온더블럭 백스트릿보이스', pos: 'Noun', offset: 22, length: 15 },
         { text: '뉴키즈온더블럭 백스트릿보이스 조인트', pos: 'Noun', offset: 22, length: 19 },
-        { text: '백스트릿보이스 조인트', pos: 'Noun', offset: 30, length: 11 },
         { text: '뉴키즈온더블럭 백스트릿보이스 조인트 컨서트', pos: 'Noun', offset: 22, length: 23 },
-        { text: '백스트릿보이스 조인트 컨서트', pos: 'Noun', offset: 30, length: 15 },
-        { text: '조인트 컨서트', pos: 'Noun', offset: 38, length: 7 },
         { text: '인기', pos: 'Noun', offset: 8, length: 2 },
         { text: '폭발', pos: 'Noun', offset: 10, length: 2 },
-        { text: '스트릿', pos: 'Noun', offset: 31, length: 3 },
+        { text: '백스트릿', pos: 'Noun', offset: 30, length: 4 },
         { text: '보이스', pos: 'Noun', offset: 34, length: 3 },
         { text: '조인트', pos: 'Noun', offset: 38, length: 3 },
         { text: '컨서트', pos: 'Noun', offset: 42, length: 3 }
@@ -178,7 +160,7 @@ suite('OpenKoreanTextProcessor', () => {
 
     test('normalize', () => {
       const text = '힘들겟씀다 그래욬ㅋㅋㅋ';
-      const expected = '힘들겠습니다 그래요ㅋㅋ';
+      const expected = '힘들겠습니다 그래요ㅋㅋㅋ';
       return OpenKoreanTextProcessor.normalize(text).then((result) => expect(result).to.eql(expected));
     });
 
@@ -186,16 +168,15 @@ suite('OpenKoreanTextProcessor', () => {
       const text = '착한강아지상을 받은 루루';
       return OpenKoreanTextProcessor.tokenize(text).then((result) => {
         expect(result.toString()).to.eql(
-          'List(착한(Adjective: 0, 2), 강아지(Noun: 2, 3), 상(Suffix: 5, 1), 을(Josa: 6, 1), ' +
-          ' (Space: 7, 1), 받은(Verb: 8, 2),  (Space: 10, 1), 루루(Noun: 11, 2))'
-        );
+          'List(착한(Adjective(착하다): 0, 2), 강아지(Noun: 2, 3), 상(Suffix: 5, 1), 을(Josa: 6, 1), ' +
+          ' (Space: 7, 1), 받은(Verb(받다): 8, 2),  (Space: 10, 1), 루루(Noun: 11, 2))');
         expect(result.toJSON()).to.eql([
-          { text: '착한', pos: 'Adjective', offset: 0, length: 2, isUnknown: false },
+          { text: '착한', pos: 'Adjective', stem: '착하다', offset: 0, length: 2, isUnknown: false },
           { text: '강아지', pos: 'Noun', offset: 2, length: 3, isUnknown: false },
           { text: '상', pos: 'Suffix', offset: 5, length: 1, isUnknown: false },
           { text: '을', pos: 'Josa', offset: 6, length: 1, isUnknown: false },
           { text: ' ', pos: 'Space', offset: 7, length: 1, isUnknown: false },
-          { text: '받은', pos: 'Verb', offset: 8, length: 2, isUnknown: false },
+          { text: '받은', pos: 'Verb', stem: '받다', offset: 8, length: 2, isUnknown: false },
           { text: ' ', pos: 'Space', offset: 10, length: 1, isUnknown: false },
           { text: '루루', pos: 'Noun', offset: 11, length: 2, isUnknown: false }
         ]);
@@ -207,53 +188,39 @@ suite('OpenKoreanTextProcessor', () => {
       return OpenKoreanTextProcessor.tokenize(text).then((tokens) => Promise.all([
         OpenKoreanTextProcessor.tokensToJsonArray(tokens, true)   // keeping space
           .then((result) => expect(result).to.eql([
-            { text: '착한', pos: 'Adjective', offset: 0, length: 2, isUnknown: false },
+            { text: '착한', pos: 'Adjective', stem: '착하다', offset: 0, length: 2, isUnknown: false },
             { text: '강아지', pos: 'Noun', offset: 2, length: 3, isUnknown: false },
             { text: '상', pos: 'Suffix', offset: 5, length: 1, isUnknown: false },
             { text: '을', pos: 'Josa', offset: 6, length: 1, isUnknown: false },
             { text: ' ', pos: 'Space', offset: 7, length: 1, isUnknown: false },
-            { text: '받은', pos: 'Verb', offset: 8, length: 2, isUnknown: false },
+            { text: '받은', pos: 'Verb', stem: '받다', offset: 8, length: 2, isUnknown: false },
             { text: ' ', pos: 'Space', offset: 10, length: 1, isUnknown: false },
             { text: '루루', pos: 'Noun', offset: 11, length: 2, isUnknown: false }
           ])),
         OpenKoreanTextProcessor.tokensToJsonArray(tokens, false)  // not keeping space
           .then((result) => expect(result).to.eql([
-            { text: '착한', pos: 'Adjective', offset: 0, length: 2, isUnknown: false },
+            { text: '착한', pos: 'Adjective', stem: '착하다', offset: 0, length: 2, isUnknown: false },
             { text: '강아지', pos: 'Noun', offset: 2, length: 3, isUnknown: false },
             { text: '상', pos: 'Suffix', offset: 5, length: 1, isUnknown: false },
             { text: '을', pos: 'Josa', offset: 6, length: 1, isUnknown: false },
-            { text: '받은', pos: 'Verb', offset: 8, length: 2, isUnknown: false },
+            { text: '받은', pos: 'Verb', stem: '받다', offset: 8, length: 2, isUnknown: false },
             { text: '루루', pos: 'Noun', offset: 11, length: 2, isUnknown: false }
           ]))
       ]));
     });
 
-    test('stemming', () => {
-      const text = '게으른 아침이 밝았구나';
-      return OpenKoreanTextProcessor.tokenize(text)
-        .then((tokens) => OpenKoreanTextProcessor.stem(tokens))
-        .then((stemmed) => OpenKoreanTextProcessor.tokensToJsonArray(stemmed))
-        .then((tokens) => expect(tokens).to.eql([
-          { text: '게으르다', pos: 'Adjective', offset: 0, length: 3, isUnknown: false },
-          { text: '아침', pos: 'Noun', offset: 4, length: 2, isUnknown: false },
-          { text: '이', pos: 'Josa', offset: 6, length: 1, isUnknown: false },
-          { text: '밝다', pos: 'Verb', offset: 8, length: 4, isUnknown: false }
-        ]));
-    });
-
-
     test('add to dictionary', () => {
-      const text = '우햐나어가녀아뎌';
+      const text = '우햡냡업갑녀아뎌';
       return OpenKoreanTextProcessor.tokenize(text)
         .then((tokens) => OpenKoreanTextProcessor.tokensToJsonArray(tokens, false))
         .then((result) => expect(result).to.eql([
-          { text: '우햐나어가녀아뎌', pos: 'Noun', offset: 0, length: 8, isUnknown: true }
+          { text: '우햡냡업갑녀아뎌', pos: 'Noun', offset: 0, length: 8, isUnknown: true }
         ]))
-        .then((result) => OpenKoreanTextProcessor.addNounsToDictionary('우햐나', '어가녀', '아뎌'))
+        .then((result) => OpenKoreanTextProcessor.addNounsToDictionary('우햡냡', '업갑녀', '아뎌'))
         .then((result) => OpenKoreanTextProcessor.tokenize(text))
         .then((tokens) => expect(tokens.toJSON()).to.eql([
-          { text: '우햐나', pos: 'Noun', offset: 0, length: 3, isUnknown: false },
-          { text: '어가녀', pos: 'Noun', offset: 3, length: 3, isUnknown: false },
+          { text: '우햡냡', pos: 'Noun', offset: 0, length: 3, isUnknown: false },
+          { text: '업갑녀', pos: 'Noun', offset: 3, length: 3, isUnknown: false },
           { text: '아뎌', pos: 'Noun', offset: 6, length: 2, isUnknown: false }
         ]));
     });
@@ -296,18 +263,14 @@ suite('OpenKoreanTextProcessor', () => {
         .then((phrases) => expect(phrases).to.eql([
           { text: '토토가', pos: 'Noun', offset: 3, length: 3 },
           { text: '토토가의 인기폭발', pos: 'Noun', offset: 3, length: 9 },
-          { text: '인기폭발', pos: 'Noun', offset: 8, length: 4 },
           { text: '미국', pos: 'Noun', offset: 17, length: 2 },
           { text: '뉴키즈온더블럭', pos: 'Noun', offset: 22, length: 7 },
           { text: '뉴키즈온더블럭 백스트릿보이스', pos: 'Noun', offset: 22, length: 15 },
           { text: '뉴키즈온더블럭 백스트릿보이스 조인트', pos: 'Noun', offset: 22, length: 19 },
-          { text: '백스트릿보이스 조인트', pos: 'Noun', offset: 30, length: 11 },
           { text: '뉴키즈온더블럭 백스트릿보이스 조인트 컨서트', pos: 'Noun', offset: 22, length: 23 },
-          { text: '백스트릿보이스 조인트 컨서트', pos: 'Noun', offset: 30, length: 15 },
-          { text: '조인트 컨서트', pos: 'Noun', offset: 38, length: 7 },
           { text: '인기', pos: 'Noun', offset: 8, length: 2 },
           { text: '폭발', pos: 'Noun', offset: 10, length: 2 },
-          { text: '스트릿', pos: 'Noun', offset: 31, length: 3 },
+          { text: '백스트릿', pos: 'Noun', offset: 30, length: 4 },
           { text: '보이스', pos: 'Noun', offset: 34, length: 3 },
           { text: '조인트', pos: 'Noun', offset: 38, length: 3 },
           { text: '컨서트', pos: 'Noun', offset: 42, length: 3 }

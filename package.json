@@ -24,11 +24,11 @@
   "author": "Youngrok Kim <rok0810@gmail.com>",
   "license": "Apache License 2.0",
   "devDependencies": {
-    "@types/java": "^0.7.31",
-    "@types/node": "^7.0.5",
-    "mocha": "^3.2.0",
-    "chai": "^3.5.0",
-    "typescript": "^2.1.5"
+    "@types/java": "^0.7.32",
+    "@types/node": "^8.0.7",
+    "mocha": "^3.4.2",
+    "chai": "^4.0.2",
+    "typescript": "^2.4.1"
   },
   "dependencies": {
     "es6-promisify": "^5.0.0",
@@ -38,6 +38,6 @@
   "mavenDependencies": {
     "scala-library": "http://central.maven.org/maven2/org/scala-lang/scala-library/2.12.0/scala-library-2.12.0.jar",
     "twitter-text": "https://repo1.maven.org/maven2/com/twitter/twitter-text/1.14.3/twitter-text-1.14.3.jar",
-    "open-korean-text": "http://central.maven.org/maven2/org/openkoreantext/open-korean-text/1.1/open-korean-text-1.1.jar"
+    "open-korean-text": "http://central.maven.org/maven2/org/openkoreantext/open-korean-text/2.0.4/open-korean-text-2.0.4.jar"
   }
 }

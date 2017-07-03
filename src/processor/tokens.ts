@@ -16,21 +16,19 @@ export class IntermediaryTokensObject extends Seq<any> {
   // };
 
   toJSON(): KoreanToken[] {
-    return this.map((token) => ({
-      text: token.text(),
-      pos: token.pos().toString(),
-      offset: token.offset(),
-      length: token.length(),
-      isUnknown: token.unknown !== undefined ? token.unknown() : undefined
-    }));
-  }
-
-  stem(): Promise<IntermediaryTokensObject> {
-    return OpenKoreanTextProcessor.stem(this);
-  }
-
-  stemSync(): IntermediaryTokensObject {
-    return OpenKoreanTextProcessor.stemSync(this);
+    return this.map((item) => {
+      const token: KoreanToken = {
+        text: item.text(),
+        pos: item.pos().toString(),
+        offset: item.offset(),
+        length: item.length(),
+        isUnknown: item.unknown()
+      };
+      if (item.stem().nonEmpty()) {
+        token.stem = item.stem().get();
+      }
+      return token;
+    });
   }
 
   extractPhrases(options?: ExcludePhrasesOptions) {

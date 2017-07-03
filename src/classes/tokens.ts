@@ -2,6 +2,7 @@ import { AbstractJavaClass } from './abstract';
 
 export interface KoreanToken {
   text?: string;
+  stem?: string;
   pos?: KoreanPos;
   offset?: number;
   length?: number;
@@ -17,18 +18,19 @@ export class KoreanTokenObject extends AbstractJavaClass implements KoreanToken 
     public pos: KoreanPos,
     public offset: number,
     public length: number,
-    public isUnknown?: boolean) {
-
-    super(text, KoreanPosObject.valueOf(pos), offset, length, !!isUnknown);
+    public isUnknown: boolean,
+    public stem?: string) {
+    super(text, KoreanPosObject.valueOf(pos), offset, length, !!isUnknown, stem);
   }
 
   toJSON() {
     return {
       text: this.text,
+      stem: this.stem,
       pos: this.pos,
       offset: this.offset,
       length: this.length,
-      isUnknown: this.isUnknown
+      isUnknown: this.isUnknown,
     }
   }
 }

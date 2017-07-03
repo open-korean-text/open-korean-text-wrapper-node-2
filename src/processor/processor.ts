@@ -107,21 +107,6 @@ export class OpenKoreanTextProcessor extends AbstractJavaClass {
   }
 
   /**
-   * Stem Korean Verbs and Adjectives
-   *
-   * @param  tokens Korean tokens (output of tokenize(CharSequence text)).
-   * @return stemmed tokens
-   */
-  static stem(tokens: IntermediaryTokensObject): Promise<IntermediaryTokensObject> {
-    return this.class.stemPromise(tokens.interface)
-      .then(tokenSeq => IntermediaryTokensObject.wrap(tokenSeq));
-  }
-
-  static stemSync(tokens: IntermediaryTokensObject): IntermediaryTokensObject {
-    return IntermediaryTokensObject.wrap(this.class.stem(tokens.interface));
-  }
-
-  /**
    * Split input text into sentences.
    *
    * @param text Input text.

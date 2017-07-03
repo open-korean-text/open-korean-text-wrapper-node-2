@@ -7,9 +7,9 @@ A nodejs binding for [open-korean-text](https://github.com/open-korean-text/open
 
 ## Dependency
 
-Currently wraps [open-korean-text 1.1](https://github.com/open-korean-text/open-korean-text/releases/tag/open-korean-text-1.1)
+Currently wraps [open-korean-text 2.0.4](https://github.com/open-korean-text/open-korean-text/releases/tag/open-korean-text-2.0.4)
 
-현재 이 프로젝트는 [open-korean-text 1.1](https://github.com/open-korean-text/open-korean-text/releases/tag/open-korean-text-1.1)을 사용중입니다.
+현재 이 프로젝트는 [open-korean-text 2.0.4](https://github.com/open-korean-text/open-korean-text/releases/tag/open-korean-text-2.0.4)을 사용중입니다.
 
 
 ## Requirement
@@ -140,8 +140,6 @@ An intermediate token object required for internal processing.
 Provides a convenience wrapper functionS to process text without using processor object (e.g. `OpenKoreanText.stem(...)`)
 
 ```typescript
-tokens.stem(): Promise<IntermediaryTokensObject>;
-tokens.stemSync(): IntermediaryTokensObject;
 tokens.extractPhrases(options?: ExcludePhrasesOptions): Promise<KoreanToken>;
 tokens.extractPhrasesSync(options?: ExcludePhrasesOptions): KoreanToken;
 tokens.detokenize(): Promise<string>;
@@ -156,6 +154,7 @@ tokens.toJSON(): KoreanToken[];
 A JSON output object which contains:
 
 - `text`: string - token's text
+- `stem`: string - token's stem
 - `pos`: stirng - type of token. possible entries are:
   - Word level POS:
     `Noun`, `Verb`, `Adjective`,

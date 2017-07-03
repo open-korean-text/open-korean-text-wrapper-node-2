@@ -16,20 +16,6 @@ suite('IntermediaryTokens', () => {
   })
 
   suite('sync', () => {
-    test('stem', (done) => {
-      expect(shared.token.stemSync().toJSON()).to.eql([
-        { text: '착하다', pos: 'Adjective', offset: 0, length: 2, isUnknown: false },
-        { text: '강아지', pos: 'Noun', offset: 2, length: 3, isUnknown: false },
-        { text: '상', pos: 'Suffix', offset: 5, length: 1, isUnknown: false },
-        { text: '을', pos: 'Josa', offset: 6, length: 1, isUnknown: false },
-        { text: ' ', pos: 'Space', offset: 7, length: 1, isUnknown: false },
-        { text: '받다', pos: 'Verb', offset: 8, length: 2, isUnknown: false },
-        { text: ' ', pos: 'Space', offset: 10, length: 1, isUnknown: false },
-        { text: '루루', pos: 'Noun', offset: 11, length: 2, isUnknown: false }
-      ]);
-      done();
-    });
-
     test('extractPhrases', (done) => {
       expect(shared.token.extractPhrasesSync()).to.eql([
         { text: '착한강아지상', pos: 'Noun', offset: 0, length: 6 },
@@ -46,19 +32,6 @@ suite('IntermediaryTokens', () => {
   });
 
   suite('async', () => {
-    test('stem', () => {
-      return shared.token.stem().then(res => expect(res.toJSON()).to.eql([
-        { text: '착하다', pos: 'Adjective', offset: 0, length: 2, isUnknown: false },
-        { text: '강아지', pos: 'Noun', offset: 2, length: 3, isUnknown: false },
-        { text: '상', pos: 'Suffix', offset: 5, length: 1, isUnknown: false },
-        { text: '을', pos: 'Josa', offset: 6, length: 1, isUnknown: false },
-        { text: ' ', pos: 'Space', offset: 7, length: 1, isUnknown: false },
-        { text: '받다', pos: 'Verb', offset: 8, length: 2, isUnknown: false },
-        { text: ' ', pos: 'Space', offset: 10, length: 1, isUnknown: false },
-        { text: '루루', pos: 'Noun', offset: 11, length: 2, isUnknown: false }
-      ]));
-    });
-
     test('extractPhrases', () => {
       return shared.token.extractPhrases().then(result => expect(result).to.eql([
         { text: '착한강아지상', pos: 'Noun', offset: 0, length: 6 },
@@ -75,12 +48,12 @@ suite('IntermediaryTokens', () => {
   suite('common', () => {
     test('toJSON', (done) => {
       expect(shared.token.toJSON()).to.eql([
-        { text: '착한', pos: 'Adjective', offset: 0, length: 2, isUnknown: false },
+        { text: '착한', pos: 'Adjective', stem: '착하다', offset: 0, length: 2, isUnknown: false },
         { text: '강아지', pos: 'Noun', offset: 2, length: 3, isUnknown: false },
         { text: '상', pos: 'Suffix', offset: 5, length: 1, isUnknown: false },
         { text: '을', pos: 'Josa', offset: 6, length: 1, isUnknown: false },
         { text: ' ', pos: 'Space', offset: 7, length: 1, isUnknown: false },
-        { text: '받은', pos: 'Verb', offset: 8, length: 2, isUnknown: false },
+        { text: '받은', pos: 'Verb', stem: '받다', offset: 8, length: 2, isUnknown: false },
         { text: ' ', pos: 'Space', offset: 10, length: 1, isUnknown: false },
         { text: '루루', pos: 'Noun', offset: 11, length: 2, isUnknown: false }
       ]);
