@@ -98,7 +98,13 @@ export class OpenKoreanTextProcessor extends AbstractJavaClass {
    * @return JSON array of token objects.
    */
   static tokensToJsonArray(tokens: IntermediaryTokensObject, keepSpace?: boolean): Promise<KoreanToken[]> {
-    return Promise.resolve(this.tokensToJsonArraySync(tokens, keepSpace));
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(this.tokensToJsonArraySync(tokens, keepSpace));
+      } catch (error) {
+        reject(error);
+      }
+    });
   }
 
   static tokensToJsonArraySync(tokens: IntermediaryTokensObject, keepSpace?: boolean): KoreanToken[] {
