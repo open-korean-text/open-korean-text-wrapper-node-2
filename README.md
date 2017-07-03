@@ -1,4 +1,4 @@
-# node-open-korean-text
+# open-korean-text-node
 
 [![npm version](https://badge.fury.io/js/open-korean-text-node.svg)](https://badge.fury.io/js/open-korean-text-node)
 [![Build Status](https://travis-ci.org/open-korean-text/open-korean-text-wrapper-node-2.svg)](https://travis-ci.org/open-korean-text/open-korean-text-wrapper-node-2)
