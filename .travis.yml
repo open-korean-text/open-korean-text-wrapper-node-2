@@ -3,11 +3,14 @@ sudo: false
 jdk:
   - oraclejdk8
 env:
+  - NODE_VERSION=7 CC=clang CXX=clang++
   - NODE_VERSION=6 CC=clang CXX=clang++
   - NODE_VERSION=4 CC=clang CXX=clang++
 before_install:
   - nvm install $NODE_VERSION
 before_script:
+  - echo $JAVA_OPTS
+  - export JAVA_OPTS=-Xmx512m
   - npm install
 script:
   - npm test
