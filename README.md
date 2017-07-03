@@ -72,15 +72,6 @@ OpenKoreanText.detokenizeSync(...words: string[]): string;
 - `tokens` an intermediary token object from `tokenize`
 - `words` an array of words to detokenize
 
-#### Stemming
-
-```typescript
-OpenKoreanText.stem(tokens: IntermediaryTokens): Promise<IntermediaryTokens>;
-OpenKoreanText.stemSync(tokens: IntermediaryTokens): IntermediaryTokens;
-```
-
-- `tokens` an intermediary token object from `tokenize` or `stem`
-
 #### Phrase Extracting
 
 ```typescript
@@ -137,7 +128,7 @@ OpenKoreanText.tokensToJsonArraySync(tokens: IntermediaryTokensObject, keepSpace
 ### **IntermediaryToken** object
 
 An intermediate token object required for internal processing.  
-Provides a convenience wrapper functionS to process text without using processor object (e.g. `OpenKoreanText.stem(...)`)
+Provides a convenience wrapper functionS to process text without using processor object
 
 ```typescript
 tokens.extractPhrases(options?: ExcludePhrasesOptions): Promise<KoreanToken>;
