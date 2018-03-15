@@ -7,9 +7,9 @@ A nodejs binding for [open-korean-text](https://github.com/open-korean-text/open
 
 ## Dependency
 
-Currently wraps [open-korean-text 2.0.4](https://github.com/open-korean-text/open-korean-text/releases/tag/open-korean-text-2.0.4)
+Currently wraps [open-korean-text 2.2.0](https://github.com/open-korean-text/open-korean-text/releases/tag/open-korean-text-2.2.0)
 
-현재 이 프로젝트는 [open-korean-text 2.0.4](https://github.com/open-korean-text/open-korean-text/releases/tag/open-korean-text-2.0.4)을 사용중입니다.
+현재 이 프로젝트는 [open-korean-text 2.2.0](https://github.com/open-korean-text/open-korean-text/releases/tag/open-korean-text-2.2.0)을 사용중입니다.
 
 
 ## Requirement
