@@ -8,7 +8,7 @@
     "pretest": "npm run build",
     "test": "mocha --ui tdd --timeout 10000",
     "build": "rm -rf lib && tsc",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "install": "node bin/install.js"
   },
   "repository": {
@@ -22,7 +22,10 @@
     "twitter-korean-text"
   ],
   "author": "Youngrok Kim <rok0810@gmail.com>",
-  "license": "Apache License 2.0",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "devDependencies": {
     "@types/java": "^0.7.32",
     "@types/node": "^9.4.7",
