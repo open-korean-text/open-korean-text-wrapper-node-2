@@ -1,11 +1,11 @@
 import * as Java from 'java';
-import { AbstractJavaClass, Collections, ArrayList, Seq, KoreanToken, Sentence } from '../classes';
-import { IntermediaryTokensObject } from './tokens'
+import { AbstractJavaClass, Collections, ArrayList, Seq, KoreanToken, Sentence, JavaClassInterface } from '../classes';
+import { IntermediaryTokensObject } from './tokens';
 
 export interface ExcludePhrasesOptions {
   filterSpam?: boolean;
   includeHashtag?: boolean;
-};
+}
 
 /**
  * Node-js Wrapper for OpenKoreanTextProcessor
@@ -14,7 +14,6 @@ export interface ExcludePhrasesOptions {
  * @class OpenKoreanTextProcessor
  */
 export class OpenKoreanTextProcessor extends AbstractJavaClass {
-
   static className = 'org.openkoreantext.processor.OpenKoreanTextProcessorJava';
 
   /**
@@ -28,9 +27,9 @@ export class OpenKoreanTextProcessor extends AbstractJavaClass {
     if (arguments[0] && typeof arguments[0] == 'function') {
       return Java.ensureJvm(arguments[0]);
     } else {
-      return Java.ensureJvm();
+      return new Promise<void>((resolve, reject) => Java.ensureJvm((err) => (err ? reject(err) : resolve())));
     }
-  };
+  }
 
   /**
    * Check whether the JVM is created or not
@@ -70,7 +69,6 @@ export class OpenKoreanTextProcessor extends AbstractJavaClass {
     return IntermediaryTokensObject.wrap(this.class.tokenize(text));
   }
 
-
   /**
    * Add user-defined words to the noun dictionary. Spaced words are ignored.
    *
@@ -109,7 +107,7 @@ export class OpenKoreanTextProcessor extends AbstractJavaClass {
 
   static tokensToJsonArraySync(tokens: IntermediaryTokensObject, keepSpace?: boolean): KoreanToken[] {
     const list = tokens.toJSON();
-    return keepSpace ? list : list.filter(token => token.pos !== 'Space');
+    return keepSpace ? list : list.filter((token) => token.pos !== 'Space');
   }
 
   /**
@@ -119,8 +117,8 @@ export class OpenKoreanTextProcessor extends AbstractJavaClass {
    * @return Array of Sentence objects.
    */
   static splitSentences(text: string): Promise<Sentence[]> {
-    return this.class.splitSentencesPromise(text).then(sentences =>
-      Collections.wrap(sentences).map(sentence => ({
+    return this.class.splitSentencesPromise(text).then((sentences) =>
+      Collections.wrap(sentences).map((sentence: any) => ({
         text: sentence.text(),
         start: sentence.start(),
         end: sentence.end()
@@ -129,7 +127,7 @@ export class OpenKoreanTextProcessor extends AbstractJavaClass {
   }
 
   static splitSentencesSync(text: string): Sentence[] {
-    return Collections.wrap(this.class.splitSentences(text)).map(sentence => ({
+    return Collections.wrap(this.class.splitSentences(text)).map((sentence: any) => ({
       text: sentence.text(),
       start: sentence.start(),
       end: sentence.end()
@@ -144,28 +142,26 @@ export class OpenKoreanTextProcessor extends AbstractJavaClass {
    * @param [optons.includeHashtags = false]
    * @return Array of phrase CharSequences.
    */
-  static extractPhrases(
-    tokens: IntermediaryTokensObject,
-    options?: ExcludePhrasesOptions): Promise<KoreanToken> {
-
+  static extractPhrases(tokens: IntermediaryTokensObject, options?: ExcludePhrasesOptions): Promise<KoreanToken> {
     options = { filterSpam: true, includeHashtag: false, ...options };
-    return this.class.extractPhrasesPromise(tokens.interface, options.filterSpam, options.includeHashtag).then(phrasesSeq =>
-      Collections.wrap(phrasesSeq).map(phrase => ({
-        text: phrase.text(),
-        pos: phrase.pos().toString(),
-        offset: phrase.offset(),
-        length: phrase.length()
-      }))
-    );
+    return this.class
+      .extractPhrasesPromise(tokens.interface, options.filterSpam, options.includeHashtag)
+      .then((phrasesSeq) =>
+        Collections.wrap(phrasesSeq).map((phrase: any) => ({
+          text: phrase.text(),
+          pos: phrase.pos().toString(),
+          offset: phrase.offset(),
+          length: phrase.length()
+        }))
+      );
   }
 
-  static extractPhrasesSync(
-    tokens: IntermediaryTokensObject,
-    options?: ExcludePhrasesOptions): KoreanToken {
-
+  static extractPhrasesSync(tokens: IntermediaryTokensObject, options?: ExcludePhrasesOptions): KoreanToken {
     options = { filterSpam: true, includeHashtag: false, ...options };
-    const phrasesSeq = Collections.wrap(this.class.extractPhrases(tokens.interface, options.filterSpam, options.includeHashtag));
-    return phrasesSeq.map(phrase => ({
+    const phrasesSeq = Collections.wrap(
+      this.class.extractPhrases(tokens.interface, options.filterSpam, options.includeHashtag)
+    );
+    return phrasesSeq.map((phrase: any) => ({
       text: phrase.text(),
       pos: phrase.pos().toString(),
       offset: phrase.offset(),
@@ -185,15 +181,17 @@ export class OpenKoreanTextProcessor extends AbstractJavaClass {
   static detokenize(): Promise<string> {
     let words: string[];
     if (arguments[0] instanceof IntermediaryTokensObject) {
-      words = arguments[0].toJSON().filter(token => token.pos !== 'Space').map(token => token.text);
+      words = arguments[0]
+        .toJSON()
+        .filter((token) => token.pos !== 'Space')
+        .map((token) => token.text);
     } else if (Array.isArray(arguments[0])) {
       words = arguments[0];
     } else {
       words = Array.from(arguments);
     }
     const list = new ArrayList(words);
-    return this.class.detokenizePromise(list.interface)
-      .then(detokenized => detokenized.toString());
+    return this.class.detokenizePromise(list.interface).then((detokenized) => detokenized.toString());
   }
 
   static detokenizeSync(tokens: IntermediaryTokensObject): string;
@@ -202,7 +200,10 @@ export class OpenKoreanTextProcessor extends AbstractJavaClass {
   static detokenizeSync(): string {
     let words: string[];
     if (arguments[0] instanceof IntermediaryTokensObject) {
-      words = arguments[0].toJSON().filter(token => token.pos !== 'Space').map(token => token.text);
+      words = arguments[0]
+        .toJSON()
+        .filter((token) => token.pos !== 'Space')
+        .map((token) => token.text);
     } else if (Array.isArray(arguments[0])) {
       words = arguments[0];
     } else {

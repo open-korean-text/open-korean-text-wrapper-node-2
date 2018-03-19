@@ -2,7 +2,6 @@ import { KoreanTokenObject, KoreanToken, Seq } from '../classes';
 import { OpenKoreanTextProcessor, ExcludePhrasesOptions } from './processor';
 
 export class IntermediaryTokensObject extends Seq<any> {
-
   // KoreanTokenObject is not required yet.
   //
   // toTokenObjectList(): KoreanTokenObject[] {
@@ -32,11 +31,11 @@ export class IntermediaryTokensObject extends Seq<any> {
   }
 
   extractPhrases(options?: ExcludePhrasesOptions) {
-    return OpenKoreanTextProcessor.extractPhrases(this, options)
+    return OpenKoreanTextProcessor.extractPhrases(this, options);
   }
 
   extractPhrasesSync(options?: ExcludePhrasesOptions) {
-    return OpenKoreanTextProcessor.extractPhrasesSync(this, options)
+    return OpenKoreanTextProcessor.extractPhrasesSync(this, options);
   }
 
   detokenize(): Promise<string> {
