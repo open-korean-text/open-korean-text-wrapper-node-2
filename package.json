@@ -31,7 +31,7 @@
     "typescript": "^2.7.2"
   },
   "dependencies": {
-    "es6-promisify": "^5.0.0",
+    "es6-promisify": "^6.0.0",
     "java": "^0.9.0",
     "node-wget": "^0.4.2"
   },

@@ -7,7 +7,7 @@ java.asyncOptions = {
     syncSuffix: '',
     asyncSuffix: 'Async',
     promiseSuffix: 'Promise',
-    promisify: require('es6-promisify')
+    promisify: require('es6-promisify').promisify
 };
 
 // setup dependencies
