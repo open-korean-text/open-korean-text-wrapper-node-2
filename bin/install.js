@@ -5,7 +5,6 @@
 'use strict';
 
 const fs = require('fs');
-const url = require("url");
 const path = require("path");
 const wget = require('node-wget');
 const dependencies = require('../package.json').mavenDependencies;
@@ -29,7 +28,7 @@ function clearPath(path) {
 function getDependencies(dependencies) {
     for (const key in dependencies) {
         const repository = dependencies[key];
-        const filename = path.basename(url.parse(repository).pathname);
+        const filename = path.basename(key + ".jar");
         wget({ url: repository, dest: 'jar/' + filename });
     }
 }

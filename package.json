@@ -1,6 +1,6 @@
 {
   "name": "open-korean-text-node",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Nodejs binding for open-korean-text via java interface.",
   "main": "index.js",
   "types": "lib/index.d.ts",
@@ -27,20 +27,20 @@
     "node": ">=4.0.0"
   },
   "devDependencies": {
-    "@types/java": "^0.7.32",
+    "@types/java": "^0.9.1",
     "@types/node": "^9.4.7",
     "mocha": "^5.0.4",
     "chai": "^4.1.2",
     "typescript": "^2.7.2"
   },
   "dependencies": {
-    "es6-promisify": "^6.0.0",
-    "java": "^0.9.0",
-    "node-wget": "^0.4.2"
+    "es6-promisify": "^6.1.1",
+    "java": "^0.12.1",
+    "node-wget": "^0.4.3"
   },
   "mavenDependencies": {
-    "scala-library": "http://central.maven.org/maven2/org/scala-lang/scala-library/2.12.4/scala-library-2.12.4.jar",
+    "scala-library": "https://search.maven.org/remotecontent?filepath=org/scala-lang/scala-library/2.12.4/scala-library-2.12.4.jar",
     "twitter-text": "https://repo1.maven.org/maven2/com/twitter/twitter-text/1.14.7/twitter-text-1.14.7.jar",
-    "open-korean-text": "http://central.maven.org/maven2/org/openkoreantext/open-korean-text/2.2.0/open-korean-text-2.2.0.jar"
+    "open-korean-text": "https://search.maven.org/remotecontent?filepath=org/openkoreantext/open-korean-text/2.3.1/open-korean-text-2.3.1.jar"
   }
 }
