@@ -35,12 +35,12 @@
   },
   "dependencies": {
     "es6-promisify": "^6.0.0",
-    "java": "^0.9.0",
+    "java": "^0.12.1",
     "node-wget": "^0.4.2"
   },
   "mavenDependencies": {
-    "scala-library": "http://central.maven.org/maven2/org/scala-lang/scala-library/2.12.4/scala-library-2.12.4.jar",
+    "scala-library": "https://search.maven.org/remotecontent?filepath=org/scala-lang/scala-library/2.12.4/scala-library-2.12.4.jar",
     "twitter-text": "https://repo1.maven.org/maven2/com/twitter/twitter-text/1.14.7/twitter-text-1.14.7.jar",
-    "open-korean-text": "http://central.maven.org/maven2/org/openkoreantext/open-korean-text/2.2.0/open-korean-text-2.2.0.jar"
+    "open-korean-text": "https://search.maven.org/remotecontent?filepath=org/openkoreantext/open-korean-text/2.3.1/open-korean-text-2.3.1.jar"
   }
 }
