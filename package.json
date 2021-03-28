@@ -27,16 +27,16 @@
     "node": ">=4.0.0"
   },
   "devDependencies": {
-    "@types/java": "^0.7.32",
+    "@types/java": "^0.9.1",
     "@types/node": "^9.4.7",
     "mocha": "^5.0.4",
     "chai": "^4.1.2",
     "typescript": "^2.7.2"
   },
   "dependencies": {
-    "es6-promisify": "^6.0.0",
+    "es6-promisify": "^6.1.1",
     "java": "^0.12.1",
-    "node-wget": "^0.4.2"
+    "node-wget": "^0.4.3"
   },
   "mavenDependencies": {
     "scala-library": "https://search.maven.org/remotecontent?filepath=org/scala-lang/scala-library/2.12.4/scala-library-2.12.4.jar",
